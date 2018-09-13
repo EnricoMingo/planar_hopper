@@ -22,8 +22,8 @@ figure(1) % choose right plot target
 
 % intialize variables.
 % stuff we want to control
-height_desired = 1.;
-speed_desired = 0.1;
+height_desired = rest_leg_length + 0.2;
+speed_desired = 0.4;
 
 % constants
 dt = 0.001;
@@ -31,7 +31,7 @@ dt = 0.001;
 % initial state of robot
 time = 0.0;
 x = 0.0;
-y = rest_leg_length;%1.0;
+y = 1 ;%1.0;
 xd = 0.0;
 yd = 0.0;
 body_angle = 0;
@@ -56,6 +56,20 @@ array(max_n_points,9) = 0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % outer loop: save data and draw picture at slow rate
 while 1
+    
+    if time > 10 && time < 20
+        speed_desired = 0.9;
+    end
+    
+    if time > 20 && time < 30
+        speed_desired = -0.5;
+    end    
+    
+    if time > 30
+        speed_desired = 0.;
+    end
+    
+    
 % simulate and control at faster rate
  for j = 1:10
   control;

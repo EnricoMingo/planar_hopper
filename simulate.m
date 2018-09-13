@@ -8,7 +8,7 @@ global leg_state foot_x foot_y leg_lengthd leg_length rest_leg_length
 
 mass = 80.0;
 g = 9.81;
-leg_k = 20000;
+leg_k = 10000;
 leg_damping = 100.0;
 
 body_moi = 7.0;

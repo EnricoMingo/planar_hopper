@@ -20,7 +20,7 @@ hip_air_b = 100;
 hip_grnd_k = 1.;
 hip_grnd_b = 0.01;
 
-leg_length_default = 0.5;
+leg_length_default = 1.0;
 
 leg_length_gain = 0.0;
 
@@ -54,8 +54,8 @@ if control_state == in_air
     result = control_state;
     return;
   end;
-  K = 0.1;
-  speed_scale=7.5;
+  K = 0.2;
+  speed_scale=4.2;
   delta_foot = xd*last_bounce_time/2. + K*(xd-speed_desired/speed_scale);
   delta_theta = delta_foot/rest_leg_length;
   leg_angle_desired = -0*body_angle + asin(delta_theta);
@@ -64,6 +64,7 @@ if control_state == in_air
   leg_angle_vec = [leg_angle_vec leg_angle];
   leg_angle_desired_vec = [leg_angle_desired_vec leg_angle_desired];
   delta_foot_vec = [delta_foot_vec delta_foot];
+  foot_x_vec = [foot_x_vec foot_x-x];
   if ( y > max_height )
     max_height = y;
   end;
@@ -92,7 +93,7 @@ end;
 if control_state == on_ground_going_up
   % SET rest_leg_length TO ADD ENERGY
   %rest_leg_length = leg_length_default;
-  Kh = 0.25;
+  Kh = 0.25*1.6;
   Dh = 0.05;
   rest_leg_length = leg_length_default + Kh*(height_desired-y) -Dh*yd;
   hip_torque = hip_grnd_k*(-body_angle) - hip_grnd_b*body_angled;
