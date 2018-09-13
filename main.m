@@ -23,7 +23,7 @@ figure(1) % choose right plot target
 % intialize variables.
 % stuff we want to control
 height_desired = 1.;
-speed_desired = 0.7;
+speed_desired = 0.1;
 
 % constants
 dt = 0.001;
@@ -31,7 +31,7 @@ dt = 0.001;
 % initial state of robot
 time = 0.0;
 x = 0.0;
-y = 1.0;
+y = rest_leg_length;%1.0;
 xd = 0.0;
 yd = 0.0;
 body_angle = 0;
@@ -55,8 +55,7 @@ array(max_n_points,9) = 0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % outer loop: save data and draw picture at slow rate
-%while 1
- for i = 1:10000
+while 1
 % simulate and control at faster rate
  for j = 1:10
   control;
@@ -64,17 +63,17 @@ array(max_n_points,9) = 0;
  end;
 
 % save data in array
- if ( i <= max_n_points )
-   array(i,1) = time;
-   array(i,2) = y;
-   array(i,3) = yd;
-   array(i,4) = control_state;
-   array(i,5) = body_angle;
-   array(i,6) = leg_angle;
-   array(i,7) = hip_torque;
-   array(i,8) = leg_angle_desired;
-   array(i,9) = xd;
- end;
+%  if ( i <= max_n_points )
+%    array(i,1) = time;
+%    array(i,2) = y;
+%    array(i,3) = yd;
+%    array(i,4) = control_state;
+%    array(i,5) = body_angle;
+%    array(i,6) = leg_angle;
+%    array(i,7) = hip_torque;
+%    array(i,8) = leg_angle_desired;
+%    array(i,9) = xd;
+%  end;
 
 % hack to keep it in view
  if ( x > max_x )

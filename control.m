@@ -54,8 +54,9 @@ if control_state == in_air
     result = control_state;
     return;
   end;
-  K = 0.108;
-  delta_foot = xd*last_bounce_time/2. + K*(xd-speed_desired/8.5); %12
+  K = 0.1;
+  speed_scale=7.5;
+  delta_foot = xd*last_bounce_time/2. + K*(xd-speed_desired/speed_scale);
   delta_theta = delta_foot/rest_leg_length;
   leg_angle_desired = -0*body_angle + asin(delta_theta);
   hip_torque = hip_air_k*(leg_angle - leg_angle_desired) + hip_air_b*leg_angled;

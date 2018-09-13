@@ -6,13 +6,13 @@ global dt time x y xd yd
 global hip_torque leg_angle body_angle leg_angled body_angled
 global leg_state foot_x foot_y leg_lengthd leg_length rest_leg_length
 
-mass = 1.0;
+mass = 80.0;
 g = 9.81;
-leg_k = 200;
-leg_damping = 1.0;
+leg_k = 20000;
+leg_damping = 100.0;
 
-body_moi = 1.0;
-leg_moi = 0.1;
+body_moi = 7.0;
+leg_moi = 0.4;
 
 foot_y_new = y - rest_leg_length*cos( leg_angle );
 foot_x_new = x + rest_leg_length*sin( leg_angle );
