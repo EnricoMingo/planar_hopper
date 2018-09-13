@@ -23,7 +23,7 @@ figure(1) % choose right plot target
 % intialize variables.
 % stuff we want to control
 height_desired = 1.;
-speed_desired = 0.1;
+speed_desired = 0.7;
 
 % constants
 dt = 0.001;
@@ -55,8 +55,8 @@ array(max_n_points,9) = 0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % outer loop: save data and draw picture at slow rate
-while 1
-
+%while 1
+ for i = 1:10000
 % simulate and control at faster rate
  for j = 1:10
   control;
