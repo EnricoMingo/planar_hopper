@@ -6,9 +6,9 @@ global dt time x y xd yd
 global hip_torque leg_angle body_angle leg_angled body_angled
 global leg_state foot_x foot_y leg_lengthd leg_length rest_leg_length
 global control_state height_desired leg_angle_desired last_bounce_time
-global last_touchdown_time last_takeoff_time max_height last_max_height
-global speed_desired
-global leg_angle_vec leg_angle_desired_vec y_vec xd_vec delta_foot_vec foot_x_vec body_angle_vec
+global last_touchdown_time last_takeoff_time max_height last_max_height last_takeoff_yd last_takeoff_leg_angle
+global speed_desired leg_angle_flip_vec leg_angle_flip T_flip
+global leg_angle_vec leg_angle_desired_vec y_vec xd_vec delta_foot_vec foot_x_vec body_angle_vec body_angled_vec
 
 leg_angle_vec = []; 
 leg_angle_desired_vec = [];
@@ -17,13 +17,15 @@ xd_vec = [];
 delta_foot_vec = [];
 foot_x_vec = [];
 body_angle_vec = [];
+body_angled_vec = [];
+leg_angle_flip_vec = [];
 
 figure(1) % choose right plot target
 
 % intialize variables.
 % stuff we want to control
-height_desired = rest_leg_length + 0.2;
-speed_desired = 0.4;
+height_desired = rest_leg_length + 0.5;
+speed_desired = 0.;
 
 % constants
 dt = 0.001;
@@ -31,7 +33,7 @@ dt = 0.001;
 % initial state of robot
 time = 0.0;
 x = 0.0;
-y = 1 ;%1.0;
+y = 2 ;%1.0;
 xd = 0.0;
 yd = 0.0;
 body_angle = 0;
@@ -47,6 +49,8 @@ last_touchdown_time = -1;
 last_takeoff_time = -1;
 max_height = y;
 last_max_height = y;
+last_takeoff_yd = 0;
+last_takeoff_leg_angle = 0;
 
 max_n_points = 1000;
 
@@ -57,17 +61,25 @@ array(max_n_points,9) = 0;
 % outer loop: save data and draw picture at slow rate
 while 1
     
-    if time > 10 && time < 20
-        speed_desired = 0.9;
-    end
+%      pause
     
-    if time > 20 && time < 30
-        speed_desired = -0.5;
-    end    
-    
-    if time > 30
-        speed_desired = 0.;
-    end
+%     if time > 10 && time < 20
+%         speed_desired = 0.9;
+%     end
+%     
+%     if time > 15 && time < 20
+%         height_desired = rest_leg_length + 0.8;
+% %     else 
+% %         height_desired = rest_leg_length + 0.2;
+%     end
+%     
+%     if time > 20 && time < 30
+%         speed_desired = -0.5;
+%     end    
+%     
+%     if time > 30
+%         speed_desired = 0.;
+%     end
     
     
 % simulate and control at faster rate
